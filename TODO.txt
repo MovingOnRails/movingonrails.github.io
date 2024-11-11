@@ -1,6 +1,6 @@
 TODO:
-- Beautify the webpage: add images
 - Add a header that has links to the other parts of the webpage. Namely the projects and codingame
+- Beautify the webpage: add images
 - Add email to contact
 - Dedicate a part of the site to explaining each Project I've programmed.
 - Dedicate a part of the site to explaining every solution I've done at codingame.
