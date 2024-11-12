@@ -1,10 +1,11 @@
 TODO:
-- Add Contact section. Add email. Add small email icon
 - Complete the About Me section. Add an image
 - Complete the Education section. Add an image
 - Add more projects to the Projects section. Add an image
 - When clicking the Codingame Solutions anchor tag, navigate to another index.html that divides the problems by it's difficulty. 
   Where you can click a problem and then it takes you to a brief description of it and its solution.
-- Add an image to Miscellaneous
 DONE:
 - Add a header that has links and smooth scrolls to the sections of the webpage.
+- Add Contact section. Add email. Add small email icon
+- beautify the <hr> css
+- Add padding top to the <section> element
