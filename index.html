@@ -12,10 +12,16 @@
           background-color: #f4f4f4;
           color: #333;
         }
+
+        section {
+            height: 50vh;
+        }
+
         header {
           background-color: #333;
           color: #fff;
           padding: 10px;
+          padding-top: 40px;
           text-align: center;
         }
         .container {
@@ -37,34 +43,80 @@
         .social-links a:hover {
           color: #007acc;
         }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
     </style>
 </head>
 <body>
+
+<div class="navbar">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <a href="#miscellaneous">Miscellaneous</a>
+</div>
 
 <header>
     <h1 style="color: #dae1ee">MovingOnRails</h1>
     <p>Welcome to my github pages website!</p>
 </header>
 
-<div class="container">
-    <section>
-        <h2>About Me</h2>
-        <p>I’m a software developer with a passion for creating impactful software and exploring new technologies. Here you’ll find my projects, blog posts, and more about what I do.</p>
-    </section>
+<div>
+    <div id="aboutMeImage" style="background-color: #fcba03">
+        <section id="about" class="container">
+            <h2>About Me</h2>
+            <p>I’m a software developer with a passion for creating impactful software and exploring new technologies. Here you’ll find my projects, blog posts, and more about what I do.</p>
+        </section>
+    </div>
     <hr>
-    <section>
-        <h2>Projects</h2>
-        <ul>
-            <li><a href="https://github.com/MovingOnRails/project-aggregator" target="_blank">Project Aggregator</a> A simple blog/commerce webpage. Backend written in Java using Spring Framework</li>
-        </ul>
-    </section>
+    <div id="educationImage" style="background-color: #fc3503">
+        <section id="education" class="container" >
+            <h2>Education</h2>
+            <ul>
+                <li><a href="https://github.com/MovingOnRails/CodinGame-Solutions" target="_blank">Codingame Solutions</a> Solutions I've submitted to <a>codingame.com</a></li>
+            </ul>
+        </section>
+    </div>
     <hr>
-    <section>
-        <h2>Miscellaneous</h2>
-        <ul>
-            <li><a href="https://github.com/MovingOnRails/CodinGame-Solutions" target="_blank">Codingame Solutions</a> Solutions I've submitted to <a>codingame.com</a></li>
-        </ul>
-    </section>
+    <div id="projectsImage" style="background-color: #119e2e">
+        <section id="projects" class="container">
+            <h2>Projects</h2>
+            <ul>
+                <li><a href="https://github.com/MovingOnRails/project-aggregator" target="_blank">Project Aggregator</a> A simple blog/commerce webpage. Backend written in Java using Spring Framework</li>
+            </ul>
+        </section>
+    </div>
+    <hr>
+    <div id="miscellaneousImage" style="background-color: #13459c">
+        <section id="miscellaneous" class="container">
+            <h2>Miscellaneous</h2>
+            <ul>
+                <li><a href="https://github.com/MovingOnRails/CodinGame-Solutions" target="_blank">Codingame Solutions</a> Solutions I've submitted to <a href="https://codingame.com">codingame.com</a></li>
+            </ul>
+        </section>
+    </div>
     <!---<section>
         <h2>Contact</h2>
         <p>You can reach me on social media:</p>
