@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">Temperatures</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+        Write a program that prints the temperature closest to 0 among input data. <br>
+        If two numbers are equally close to zero, positive integer has to be considered closest to zero (for instance, if the temperatures are -5 and 5, then display 5).
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.util.*;
+            import java.io.*;
+            import java.math.*;
+
+            /**
+             * Auto-generated code below aims at helping you parse
+             * the standard input according to the problem statement.
+             **/
+            class Solution {
+
+                public static void main(String args[]) {
+                    Scanner in = new Scanner(System.in);
+                    int n = in.nextInt(); // the number of temperatures to analyse
+
+                    int maximum_temperature_value = 5527;
+
+                    int temperature_selected_abs = maximum_temperature_value;
+                    int temperature_selected = 0;
+
+                    int current_abs;
+                    for (int i = 0; i &lt; n; i++) {
+                        int t = in.nextInt(); // a temperature expressed as an integer ranging from -273 to 5526
+                        current_abs = Math.abs(t);
+
+                        if(current_abs &lt; temperature_selected_abs){
+                            temperature_selected_abs = current_abs;
+                            temperature_selected = t;
+                        } else if(current_abs == temperature_selected_abs &amp;&amp; temperature_selected &lt; t){
+                            temperature_selected_abs = current_abs;
+                            temperature_selected = t;
+                        }
+                        System.err.println("Current_abs and temperature_selected_abs and temperature_selected:");
+                            System.err.println(current_abs);
+                            System.err.println(temperature_selected_abs);
+                            System.err.println(temperature_selected);
+                    }
+
+                    // Write an answer using System.out.println()
+                    // To debug: System.err.println("Debug messages...");
+                    System.out.println(temperature_selected);
+                }
+            }
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
