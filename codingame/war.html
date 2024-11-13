@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">War</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+        Let's go back to basics with this simple card game: war!
+<br>
+        Your goal is to write a program which finds out which player is the winner for a given card distribution of the "war" game.
+        <br>
+        War is a card game played between two players. Each player gets a variable number of cards of the beginning of the game: that's the player's deck. Cards are placed face down on top of each deck.
+        <br>
+        Step 1 : the fight<br>
+        At each game round, in unison, each player reveals the top card of their deck – this is a "battle" – and the player with the higher card takes both the cards played and moves them to the bottom of their stack. The cards are ordered by value as follows, from weakest to strongest:<br>
+        2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A.<br>
+
+        Step 2 : war<br>
+        If the two cards played are of equal value, then there is a "war". First, both players place the three next cards of their pile face down. Then they go back to step 1 to decide who is going to win the war (several "wars" can be chained). As soon as a player wins a "war", the winner adds all the cards from the "war" to their deck.<br>
+
+        Special cases:
+        <br>
+        If a player runs out of cards during a "war" (when giving up the three cards or when doing the battle), then the game ends and both players are placed equally first.<br>
+        The test cases provided in this puzzle are built in such a way that a game always ends (you do not have to deal with infinite games)<br>
+
+        Each card is represented by its value followed by its suit: D, H, C, S. For example: 4H, 8C, AS.<br>
+
+        When a player wins a battle, they put back the cards at the bottom of their deck in a precise order. First the cards from the first player, then the one from the second player (for a "war", all the cards from the first player then all the cards from the second player).<br>
+
+        For example, if the card distribution is the following:<br>
+        Player 1 : 10D 9S 8D KH 7D 5H 6S<br>
+        Player 2 : 10H 7H 5C QC 2C 4H 6D<br>
+        Then after one game turn, it will be:<br>
+        Player 1 : 5H 6S 10D 9S 8D KH 7D 10H 7H 5C QC 2C<br>
+        Player 2 : 4H 6D
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.util.*;
+            import java.io.*;
+            import java.math.*;
+            
+            /**
+             * Auto-generated code below aims at helping you parse
+             * the standard input according to the problem statement.
+             **/
+            class Solution {
+            
+                public static int debug_lower = 0;
+                public static int debug_higher = 10; 
+            
+                public static void addCardsAtWarToHand(List&lt;String> hand, List&lt;String> cardsAtWar){
+                    for(int i=0;i&lt;cardsAtWar.size();i++){
+                        String currCard = cardsAtWar.get(i);
+                        hand.add(currCard);
+                    }
+                    cardsAtWar.clear();
+                }
+            
+                public static boolean isNumeric(String str){
+                    return str.matches("\\d+");
+                }
+            
+                public static boolean firstCardBeatsSecond(String card1, String card2,int numberOfRounds){
+                    String value1 = card1.substring(0,card1.length()-1);
+                    String value2 = card2.substring(0,card2.length()-1);
+                    boolean res = false;
+                    if(value1 != value2){
+                        if( !isNumeric(value1) &amp;&amp; isNumeric(value2)){
+                            res = true;
+                        } else if (isNumeric(value1) &amp;&amp; !isNumeric(value2)){
+                            res = false;
+                        } else if(!isNumeric(value1) &amp;&amp; !isNumeric(value2)){
+                            if(value1.equals("A") &amp;&amp; !value2.equals("A")){
+                                res = true;
+                            }else if(value2.equals("A")){
+                                res = false;
+                            }else if(value1.equals("K") &amp;&amp; !value2.equals("K")){
+                                res = true;
+                            }else if(value2.equals("K")){
+                                res = false;
+                            }else if(value1.equals("Q") &amp;&amp; !value2.equals("Q")){
+                                res = true;
+                            }else if(value2.equals("Q")){
+                                res = false;
+                            }
+                        } else if(isNumeric(value1) &amp;&amp; isNumeric(value2)){
+                            res = Integer.parseInt(value1) > Integer.parseInt(value2);
+                        }
+                    }
+                    
+                    if(debug_lower &lt;= numberOfRounds &amp;&amp; numberOfRounds &lt;= debug_higher){
+                        System.err.println("value1; "+value1);
+                        System.err.println("value2; "+value2);
+                        System.err.println("res; "+res);
+                    }
+                    return res;
+                }
+            
+                public static void printList(List&lt;String> hand){
+                    for(String card : hand){
+                        System.err.print(card+" ");
+                    }
+                    System.err.print("\n");
+                }
+            
+                public static String simulateGame(){
+                    Scanner in = new Scanner(System.in);
+                    int n = in.nextInt(); // the number of cards for player 1
+                    List&lt;String> handPlayer1 = new ArrayList&lt;>();
+                    for (int i = 0; i &lt; n; i++) {
+                        String cardp1 = in.next(); // the n cards of player 1
+                        handPlayer1.add(cardp1);
+                    }
+                    printList(handPlayer1);
+                    List&lt;String> handPlayer2 = new ArrayList&lt;>();
+                    int m = in.nextInt(); // the number of cards for player 2
+                    for (int i = 0; i &lt; m; i++) {
+                        String cardp2 = in.next(); // the m cards of player 2
+                        handPlayer2.add(cardp2);
+                    }
+                    printList(handPlayer2);
+                    System.err.print("\n");
+            
+                    int numberOfRounds = 0;
+                    boolean isWar = false;
+                    String res;
+                    List&lt;String> cardsAtWarPlayer1 = new ArrayList&lt;>();
+                    List&lt;String> cardsAtWarPlayer2 = new ArrayList&lt;>();
+                    while(true){
+                        if(debug_lower &lt;= numberOfRounds &amp;&amp; numberOfRounds &lt;= debug_higher)
+                        System.err.println("--------Round: "+numberOfRounds+"--------");
+                        //System.err.println("isWar: "+isWar);
+                        if(!isWar){
+                            numberOfRounds++;
+                        } else {
+                            for(int i =0;i&lt;3;i++){
+                                if(handPlayer1.isEmpty() || handPlayer2.isEmpty()){
+                                    return "PAT";
+                                }
+                                String cardPlayer1 = handPlayer1.get(0);
+                                handPlayer1.remove(0);
+                                cardsAtWarPlayer1.add(cardPlayer1);
+                                String cardPlayer2 = handPlayer2.get(0);
+                                handPlayer2.remove(0);
+                                cardsAtWarPlayer2.add(cardPlayer2);
+                            }
+                        }
+                        if(debug_lower &lt;= numberOfRounds &amp;&amp; numberOfRounds &lt;= debug_higher){
+                            printList(handPlayer1);
+                            printList(handPlayer2);
+                            if(isWar){
+                                printList(cardsAtWarPlayer1);
+                                printList(cardsAtWarPlayer2);
+                            }
+                        }
+                        isWar = false;
+                        if(handPlayer1.isEmpty() || handPlayer2.isEmpty()){
+                            return "PAT";
+                        }
+                        String currentCardPlayer1 = handPlayer1.get(0);
+                        handPlayer1.remove(0);
+                        cardsAtWarPlayer1.add(currentCardPlayer1);
+                        String currentCardPlayer2 = handPlayer2.get(0);
+                        handPlayer2.remove(0);
+                        cardsAtWarPlayer2.add(currentCardPlayer2);
+                        if(firstCardBeatsSecond(currentCardPlayer1, currentCardPlayer2, numberOfRounds)){
+                            addCardsAtWarToHand(handPlayer1, cardsAtWarPlayer1);
+                            addCardsAtWarToHand(handPlayer1, cardsAtWarPlayer2);
+                        } else if(firstCardBeatsSecond(currentCardPlayer2, currentCardPlayer1, numberOfRounds)) {
+                            addCardsAtWarToHand(handPlayer2, cardsAtWarPlayer1);
+                            addCardsAtWarToHand(handPlayer2, cardsAtWarPlayer2);
+                        } else { // Draw
+                            isWar = true;
+                        }
+            
+                        if(handPlayer1.isEmpty()){
+                            return "2 "+numberOfRounds;
+                        } else if(handPlayer2.isEmpty()){
+                            return "1 "+numberOfRounds;
+                        }
+            
+                    }
+                }
+            
+                public static void main(String args[]) {
+                    String res = simulateGame();
+                    System.out.println(res);
+                }
+            }
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
