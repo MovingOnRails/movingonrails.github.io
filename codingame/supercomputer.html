@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">Super Computer</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+        In the Computer2000 data center, you are responsible for planning the usage of a supercomputer for scientists. ​Therefore you've decided to organize things a bit by planning everybody’s tasks. The logic is simple: the higher the number of calculations which can be performed, the more people you can satisfy.
+        <br>
+        Scientists give you the starting day of their calculation and the number of consecutive days they need to reserve the calculator.
+        <br>
+        For exmaple;<br>
+        Calculation A starts on day 2 and ends on day 6<br>
+
+        Calculation B starts on day 9 and ends on day 15<br>
+
+        Calculation starts on day 15 and ends on day 20<br>
+
+        Calculation D starts on day 9 and ends on day 11<br>
+        In this example, it’s not possible to carry out all the calculations because the periods for B and C overlap. 3 calculations maximum can be carried out: A, D and C.
+
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.io.File;
+            import java.io.FileNotFoundException;
+            import java.util.*;
+            
+            class Calculation {
+                int number = -1;
+                int startDay = -1;
+                int endDay = -1;
+                Calculation(int number, int startDay, int endDay){
+                    this.number = number;
+                    this.startDay = startDay;
+                    this.endDay = endDay;
+                }
+                public String toString(){
+                    return "("+this.number+", "+this.startDay+", "+this.endDay+")";
+                }
+            }
+            
+            public class Solution {
+            
+                private static boolean calculationsOverlap(Calculation c1, Calculation c2){
+                    return !(c1.startDay > c2.endDay || c1.endDay &lt; c2.startDay);
+                }
+            
+                public static void main(String args[]) throws FileNotFoundException {
+                    Scanner in = new Scanner(System.in);
+                    if(args.length == 1){
+                        File file = new File(args[0]);
+                        in = new Scanner(file);
+                    }
+                    int N = in.nextInt();
+                    Calculation[] calculations = new Calculation[N];
+                    for (int i = 0; i &lt; N; i++) {
+                        int J = in.nextInt();
+                        int D = in.nextInt();
+                        Calculation calculation = new Calculation(i,J,J+D-1);
+                        calculations[i] = calculation;
+                    }
+                    Arrays.sort(calculations, Comparator.comparingInt(calc -> calc.endDay));
+                    int index = 0;
+                    int selectedCount = 0;
+                    while(index&lt;N){
+                        Calculation curr = calculations[index];
+                        selectedCount++;
+                        index++;
+                        if(index &lt; N){
+                            Calculation following = calculations[index];
+                            while(calculationsOverlap(curr, following) &amp;&amp; index&lt;N){
+                                index++;
+                                if (index&lt;N){
+                                    following = calculations[index];
+                                }
+                            }
+                        }
+                    }
+                    System.out.println(selectedCount);
+                }
+            }
+
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
