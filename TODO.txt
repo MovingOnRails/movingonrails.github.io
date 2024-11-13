@@ -1,6 +1,6 @@
 TODO:
-- When clicking the Codingame Solutions anchor tag, navigate to another index.html that divides the problems by it's difficulty. 
-  Where you can click a problem and then it takes you to a brief description of it and its solution.
+- Make the showcase for each of the codingame problems.
+- Make boxes for the portfolio projects, that highlight themselves and then a text appears when hovering over them.
 DONE:
 - Add a header that has links and smooth scrolls to the sections of the webpage.
 - Add Contact section. Add email. Add small email icon
@@ -10,3 +10,5 @@ DONE:
 - Complete the Education section. Add an image
 - Add more projects to the Projects section. Add an image
 - Complete the About Me section. Add an image
+- When clicking the Codingame Solutions anchor tag, navigate to another index.html that divides the problems by it's difficulty.
+  Where you can click a problem and then it takes you to a brief description of it and its solution.
