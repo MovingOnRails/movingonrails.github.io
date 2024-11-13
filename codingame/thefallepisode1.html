@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">The Fall - Episode 1</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+        Your objective is to write a program capable of predicting the route Indy will take on his way down a tunnel. Indy is not in danger of getting trapped in this first mission.
+        <br>
+        The tunnel consists of a patchwork of square rooms of different types.The rooms can be accessed and activated by computer using an ancient RS232 serial port (because Mayans aren't very technologically advanced, as is to be expected...).
+<br>
+        There is a total of 14 room types (6 base shapes extended to 14 through rotations).
+<br>
+        Upon entering a room, depending on the type of the room and Indy's entrance point (TOP,LEFT, or RIGHT) he will either exit the room through a specific exit point, suffer a lethal collision or lose momentum and get stuck
+        <br>
+        Indy is perpetually drawn downwards: he cannot leave a room through the top.
+        <br>
+        At the start of the game, you are given the map of the tunnel in the form of a rectangular grid of rooms. Each room is represented by its type.
+        <br>
+        For this first mission, you will familiarize yourself with the tunnel system, the rooms have all been arranged in such a way that Indy will have a safe continuous route between his starting point (top of the temple) and the exit area (bottom of the temple).
+        <br>
+        Each game turn:
+        <br>
+        You receive Indy's current position
+        <br>
+        Then you specify what Indy's position will be next turn.
+        <br>
+        Indy will then move from the current room to the next according to the shape of the current room.
+
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.util.*;
+            import java.io.*;
+            import java.math.*;
+
+            /**
+             * Auto-generated code below aims at helping you parse
+             * the standard input according to the problem statement.
+             **/
+            class Player {
+
+                public static String get_exit(int curr_room, String entrance_POS){
+                    System.err.println("entrance_POS: "+entrance_POS);
+                    System.err.println("curr_room: "+curr_room);
+                    switch(curr_room){
+                        case 1:
+                        case 3:
+                        case 7:
+                        case 8:
+                        case 9:
+                        case 12:
+                        case 13:
+                            return "DOWN";
+                        case 2:
+                        case 6:
+                            if(entrance_POS.equals("RIGHT")){
+                                return "LEFT";
+                            } else if(entrance_POS.equals("LEFT")){
+                                return "RIGHT";
+                            }
+                            break;
+                        case 4:
+                            if(entrance_POS.equals("TOP")){
+                                return "LEFT";
+                            } else if(entrance_POS.equals("RIGHT")){
+                                return "DOWN";
+                            }
+                            break;
+                        case 5:
+                            if(entrance_POS.equals("TOP")){
+                                return "RIGHT";
+                            } else if(entrance_POS.equals("LEFT")){
+                                return "DOWN";
+                            }
+                            break;
+                        case 10:
+                            return "LEFT";
+                        case 11:
+                            return "RIGHT";
+                    }
+                    return "ERROR";
+                }
+
+                public static void main(String args[]) {
+                    Scanner in = new Scanner(System.in);
+                    int W = in.nextInt(); // number of columns.
+                    int H = in.nextInt(); // number of rows.
+                    if (in.hasNextLine()) {
+                        in.nextLine();
+                    }
+                    int[][] rooms = new int[W][H];
+                    for (int i = 0; i &lt; H; i++) {
+
+                        String LINE = in.nextLine(); // represents a line in the grid and contains W integers. Each integer represents one room of a given type.
+                        String[] line_separated = LINE.split(" ");
+                        for(int j=0;j&lt;W;j++){
+                            rooms[j][i] = Integer.parseInt(line_separated[j]);
+                            //System.err.println("rooms["+i+"]["+j+"]: "+rooms[i][j]);
+                        }
+                    }
+                    int EX = in.nextInt(); // the coordinate along the X axis of the exit (not useful for this first mission, but must be read).
+
+                    // game loop
+                    while (true) {
+                        int XI = in.nextInt();
+                        int YI = in.nextInt();
+                        String POS = in.next();
+                        //System.err.println("XI: "+XI);
+                        //System.err.println("YI: "+YI);
+                        int curr_room = rooms[XI][YI];
+                        String curr_exit = get_exit(curr_room, POS);
+                        System.err.println("curr_exit: "+curr_exit);
+                        if(curr_exit == "RIGHT"){
+                            XI++;
+                            POS = "LEFT";
+                        } else if(curr_exit == "LEFT"){
+                            XI--;
+                            POS = "RIGHT";
+                        } else if(curr_exit == "DOWN"){
+                            YI++;
+                            POS = "TOP";
+                        }
+
+                        // Write an action using System.out.println()
+                        // To debug: System.err.println("Debug messages...");
+
+
+                        // One line containing the X Y coordinates of the room in which you believe Indy will be on the next turn.
+                        System.out.println(XI+" "+YI);
+                    }
+                }
+            }
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
