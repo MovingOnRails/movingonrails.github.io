@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">Telephone Numbers</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+        By joining the iDroid smartphone development team, you have been given the responsibility of developing the contact manager. Obviously, what you were not told is that there are strong technical constraints for iDroid: the system doesn’t have much memory and the processor is as fast as a Cyrix from the 90s...
+        <br>
+
+        In the specifications, there are two points in particular that catch your attention:
+<br>
+        1. Intelligent Assistance for entering numbers<br>
+        The numbers corresponding to the first digits entered will be displayed to the user almost instantly.
+        <br>
+        2. Number storage optimization <br>
+        First digits which are common to the numbers should not be duplicated in the memory.<br>
+        Your task is to write a program that displays the number of items (which are numbers) required to store a list of telephone numbers with the structure presented above.
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.util.*;
+            import java.io.*;
+            import java.math.*;
+
+            /**
+             * Auto-generated code below aims at helping you parse
+             * the standard input according to the problem statement.
+             **/
+            class TrieNode {
+                public static int numberOfKeyedNodes = 0;
+                Map&lt;Character, TrieNode> children = new HashMap&lt;>();
+                public boolean isEndOfWord = false;
+
+                public void addKey(String key){
+
+                    TrieNode currNode = this;
+                    for(int i=0;i&lt;key.length();i++){
+                        char currChar = key.charAt(i);
+                        if(currNode.children.containsKey(currChar)){
+                            currNode = currNode.children.get(currChar);
+                        } else {
+                            TrieNode nextNode = new TrieNode();
+                            currNode.children.put(currChar, nextNode);
+                            currNode = nextNode;
+                            this.numberOfKeyedNodes++;
+                        }
+                    }
+                    currNode.isEndOfWord = true;
+                }
+            }
+
+            class Solution {
+
+                public static void main(String args[]) {
+                    Scanner in = new Scanner(System.in);
+                    int N = in.nextInt();
+                    TrieNode trie = new TrieNode();
+                    for (int i = 0; i &lt; N; i++) {
+                        String telephone = in.next();
+                        trie.addKey(telephone);
+                    }
+
+                    // Write an answer using System.out.println()
+                    // To debug: System.err.println("Debug messages...");
+
+
+                    // The number of elements (referencing a number) stored in the structure.
+                    System.out.println(trie.numberOfKeyedNodes);
+                }
+            }
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
