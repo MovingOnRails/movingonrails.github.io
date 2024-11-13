@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">Don't Panic</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+        You need to help the clones reach the exit in order to help them escape the inside of the Improbability Drive.
+        <br>
+        The drive has a rectangular shape of variable size. It is composed of several floors (0 = lower floor) and each floor has several possible positions that the clones can occupy (0 = leftmost position, width - 1 = rightmost position).
+        <br>
+        The goal is to save at least one clone in a limited amount of rounds.
+        <br>
+        The details:
+        <br>
+        Clones appear from a unique generator at regular intervals, every three game turns. The generator is located on floor 0. Clones exit the generator heading towards the right.
+        <br>
+        Clones move one position per turn in a straight line, moving in their current direction.
+        <br>
+        A clone is destroyed by a laser if it is goes below position 0 or beyond position width - 1.
+        <br>
+        Elevators are scattered throughout the drive and can be used to move from one floor to the one above. When a clone arrives on the location of an elevator, it moves up one floor. Moving up one floor takes one game turn. On the next turn, the clone continues to move in the direction it had before moving upward.
+        <br>
+        On each game turn you can either block the leading clone - meaning the one that got out the earliest - or do nothing.
+        <br>
+        Once a clone is blocked, you can no longer act on it. The next clone in line takes the role of "leading clone" and can be blocked at a later time.
+        <br>
+        When a clone moves towards a blocked clone, it changes direction from left to right or right to left. It also changes direction when getting out of the generator directly on a blocked clone or when going up an elevator onto a blocked clone.
+        <br>
+        If a clone is blocked in front of an elevator, the elevator can no longer be used.
+        <br>
+        When a clone reaches the location of the exit, it is saved and disappears from the area.
+        <br>
+        Note: For this puzzle there is at most one elevator per floor.
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.util.*;
+            import java.io.*;
+            import java.math.*;
+
+            /**
+             * Auto-generated code below aims at helping you parse
+             * the standard input according to the problem statement.
+             **/
+
+            class Access {
+                int floor;
+                int pos;
+                boolean taken = false;
+                public Access(int f, int p){
+                    this.floor = f;
+                    this.pos = p;
+                }
+            }
+            class Player {
+
+                public static void passOneTurn(Scanner in){
+                        //System.err.println("PASS START");
+                        System.out.println("WAIT");
+                        int currentFloor = in.nextInt();
+                        int currentPos = in.nextInt();
+                        String direction = in.next();
+                        //System.err.println("PASS END");
+                }
+
+                public static String accessRelativePositionFromLeadingClone(int currentPos, int currentAccessPos){
+                    if(currentPos &lt; currentAccessPos){
+                        return "RIGHT";
+                    } else {
+                        return "LEFT";
+                    }
+                }
+
+                public static void main(String args[]) {
+                    Scanner in = new Scanner(System.in);
+                    int nbFloors = in.nextInt(); // number of floors
+                    int width = in.nextInt(); // width of the area
+                    int nbRounds = in.nextInt(); // maximum number of rounds
+                    int exitFloor = in.nextInt(); // floor on which the exit is found
+                    int exitPos = in.nextInt(); // position of the exit on its floor
+                    int nbTotalClones = in.nextInt(); // number of generated clones
+                    int nbAdditionalElevators = in.nextInt(); // ignore (always zero)
+                    int nbElevators = in.nextInt(); // number of elevators
+
+                    Access[] accesses = new Access[nbElevators+1];
+                    for (int i = 0; i &lt; nbElevators; i++) {
+                        int elevatorFloor = in.nextInt(); // floor on which this elevator is found
+                        int elevatorPos = in.nextInt(); // position of the elevator on its floor
+                        Access elevator = new Access(elevatorFloor, elevatorPos);
+                        accesses[elevatorFloor] = elevator;
+                    }
+                    Access exit = new Access(exitFloor, exitPos);
+                    accesses[exitFloor] = exit;
+
+                    // game loop
+                    int currentFloor = 0;
+                    int previousFloor = 0;
+                    boolean[] floorMarks = new boolean[nbFloors];
+                    for(int i=0;i&lt;floorMarks.length;i++){
+                        floorMarks[i] = false;
+                    }
+                    int currentPos = 0;
+                    String direction = "LEFT";
+                    Access currentAccess = accesses[0];
+                    String action = "WAIT";
+                    while (true) {
+                        previousFloor = currentFloor;
+                        currentFloor = in.nextInt(); // floor of the leading clone
+                        currentPos = in.nextInt(); // position of the leading clone on its floor
+                        direction = in.next(); // direction of the leading clone: LEFT or RIGHT
+
+                        if(previousFloor != currentFloor){
+                            if(previousFloor != -1){
+                                floorMarks[previousFloor] = true;
+                            }
+                        }
+
+                        if(currentFloor != -1){
+                            currentAccess = accesses[currentFloor];
+                            System.err.println("----------");
+                            System.err.println("currentFloor: "+currentFloor);
+                            System.err.println("floorMarks[currentFloor]: "+floorMarks[currentFloor]);
+                            System.err.println("currentAccess.floor: "+currentAccess.floor);
+                            System.err.println("direction: "+direction);
+                            System.err.println("access relative position: "+accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos));
+                        }
+
+                        if(currentFloor != -1){ // if the clone is already in game, not spawning
+
+                            if(!floorMarks[currentFloor]){
+                                if( direction.equals(accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos))
+                                || currentPos == currentAccess.pos){ /*  clone is facing towards currentAccess or is taking an access*/
+                                    //Do nothing
+                                    action = "WAIT";
+                                    System.err.println("WAIT");
+                                } else {
+                                    floorMarks[currentFloor] = true;
+                                    passOneTurn(in);
+                                    action = "BLOCK";
+                                    System.err.println("BLOCK");
+                                    // Change direction
+                                }
+                            } else {
+                                action = "WAIT";
+                            }
+
+                            System.out.println(action); // action: WAIT or BLOCK
+                        } else { // If the clone is spawning
+                            System.out.println("WAIT");
+                        }
+                    }
+                }
+            }
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
