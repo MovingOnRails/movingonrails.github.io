@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">Scrabble</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+        When playing Scrabble©, each player draws 7 letters and must find a word that scores the most points using these letters.
+<br>
+        A player doesn't necessarily have to make a 7-letter word; the word can be shorter. The only constraint is that the word must be made using the 7 letters which the player has drawn.
+<br>
+        For example, with the letters  etaenhs, some possible words are: ethane, hates, sane, ant.
+<br>
+        Your objective is to find the word that scores the most points using the available letters (1 to 7 letters).
+        <br>
+        A dictionary of authorized words is provided as input for the program. The program must find the word in the dictionary which wins the most points for the seven given letters (a letter can only be used once). If two words win the same number of points, then the word which appears first in the order of the given dictionary should be chosen.
+        <br>
+        All words will only be composed of alphabetical characters in lower case. There will always be at least one possible word.
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.util.*;
+            import java.io.*;
+            import java.math.*;
+
+            /**
+             * Auto-generated code below aims at helping you parse
+             * the standard input according to the problem statement.
+             **/
+            class Solution {
+
+                public static int getScore(String word){
+                    int score = 0;
+                    for(int i=0;i&lt;word.length();i++){
+                        char currentChar = word.charAt(i);
+                        switch(currentChar){
+                            case 'e':
+                            case 'a':
+                            case 'i':
+                            case 'o':
+                            case 'n':
+                            case 'r':
+                            case 't':
+                            case 'l':
+                            case 's':
+                            case 'u':
+                                score += 1;
+                                break;
+                            case 'd':
+                            case 'g':
+                                score += 2;
+                                break;
+                            case 'b':
+                            case 'c':
+                            case 'm':
+                            case 'p':
+                                score += 3;
+                                break;
+                            case 'f':
+                            case 'h':
+                            case 'v':
+                            case 'w':
+                            case 'y':
+                                score += 4;
+                                break;
+                            case 'k':
+                                score += 5;
+                                break;
+                            case 'j':
+                            case 'x':
+                                score += 8;
+                                break;
+                            case 'q':
+                            case 'z':
+                                score += 10;
+                                break;
+
+                        }
+                    }
+                    return score;
+                }
+
+                public static Map&lt;Character, Integer> makeAvailableLettersMap(String LETTERS){
+                    Map&lt;Character, Integer> availableLetters = new HashMap&lt;>();
+                    for(char c : LETTERS.toCharArray()){
+                        int availableChar = availableLetters.getOrDefault(c, 0);
+                        availableChar++;
+                        availableLetters.put(c,availableChar);
+                    }
+                    return availableLetters;
+                }
+
+                public static boolean isViable(String word, String LETTERS){
+                    Map&lt;Character, Integer> availableLetters = makeAvailableLettersMap(LETTERS);
+                    Map&lt;Character, Integer> expendedLetters = new HashMap&lt;>();
+                    for(char c : word.toCharArray()){
+                        int availableChar = availableLetters.getOrDefault(c, 0);
+                        int expendedChar = expendedLetters.getOrDefault(c, 0);
+                        expendedChar++;
+                        if(expendedChar > availableChar){
+                            return false;
+                        }
+                        expendedLetters.put(c, expendedChar);
+                    }
+                    return true;
+                }
+
+                public static void main(String args[]) {
+                    Scanner in = new Scanner(System.in);
+                    int N = in.nextInt();
+                    if (in.hasNextLine()) {
+                        in.nextLine();
+                    }
+                    List&lt;String> dictionary = new ArrayList&lt;>(N);
+                    for (int i = 0; i &lt; N; i++) {
+                        String W = in.nextLine();
+                        dictionary.add(W);
+                    }
+                    String LETTERS = in.nextLine();
+
+                    String maxWord = "invalidWord";
+                    int maxWordScore = 0;
+                    for(String word : dictionary){
+                        if(isViable(word,LETTERS)){
+                            int currentScore = getScore(word);
+                            if(currentScore > maxWordScore){
+                                maxWordScore = currentScore;
+                                maxWord = word;
+                            }
+                        }
+                    }
+                    System.out.println(maxWord);
+                }
+            }
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
