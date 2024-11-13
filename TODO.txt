@@ -1,5 +1,4 @@
 TODO:
-- Make it so that the UBA's logo image doesn't overlap with the text I've written for the education section
 - Complete the About Me section. Add an image
 - Complete the Education section. Add an image
 - Add more projects to the Projects section. Add an image
@@ -10,3 +9,4 @@ DONE:
 - Add Contact section. Add email. Add small email icon
 - beautify the <hr> css
 - Add padding top to the <section> element
+- Make it so that the UBA's logo image doesn't overlap with the text I've written for the education section
