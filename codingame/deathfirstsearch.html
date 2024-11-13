@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">Death First Search</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+        Your virus has caused a backdoor to open on the Bobnet network enabling you to send new instructions in real time.
+<br>
+        You decide to take action by stopping Bobnet from communicating on its own internal network.
+        <br>
+        Bobnet's network is divided into several smaller networks, in each sub-network is a Bobnet agent tasked with transferring information by moving from node to node along links and accessing gateways leading to other sub-networks.
+        <br>
+        Your mission is to reprogram the virus so it will sever links in such a way that the Bobnet Agent is unable to access another sub-network thus preventing information concerning the presence of our virus to reach Bobnet's central hub.
+        <br>
+        For each test you are given:
+        <br>
+        A map of the network.<br>
+        The position of the exit gateways.<br>
+        The starting position of the Bobnet agent.<br>
+
+        >>> Nodes can only be connected to up to a single gateway. <<<<br>
+
+        Each game turn:<br>
+
+        First off, you sever one of the given links in the network.<br>
+        Then the Bobnet agent moves from one Node to another accessible Node.
+
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.util.*;
+            import java.io.*;
+            import java.math.*;
+
+            /**
+             * Auto-generated code below aims at helping you parse
+             * the standard input according to the problem statement.
+             **/
+
+            class Node {
+                int number;
+                List&lt;Integer> links = new ArrayList&lt;>();
+
+                public Node(int n){
+                    this.number = n;
+                }
+
+                public void addLink(Integer node){
+                    links.add(node);
+                }
+            }
+
+            class Player {
+
+                public static int get_unvisited_node_with_min_distance(int[] distances, boolean[] visited){
+                        int undefined = distances.length+1;
+                        int minimum_distance = Integer.MAX_VALUE;
+                        int selected_node = undefined;
+                        for(int i =0;i&lt;visited.length;i++){
+                            if(!visited[i]){
+                                if(distances[i] &lt; minimum_distance){
+                                    minimum_distance = distances[i];
+                                    selected_node = i;
+                                }
+                            }
+                        }
+                        return selected_node;
+                }
+
+                public static void main(String args[]) {
+                    Scanner in = new Scanner(System.in);
+                    int N = in.nextInt(); // the total number of nodes in the level, including the gateways
+                    int L = in.nextInt(); // the number of links
+                    int E = in.nextInt(); // the number of exit gateways
+
+                    Node[] nodes = new Node[N];
+                    for(int i = 0;i&lt;N;i++){
+                        nodes[i] = new Node(i);
+                    }
+
+                    for (int i = 0; i &lt; L; i++) {
+                        int N1 = in.nextInt(); // N1 and N2 defines a link between these nodes
+                        int N2 = in.nextInt();
+                        nodes[N1].addLink(N2);
+                        nodes[N2].addLink(N1);
+                    }
+
+                    List&lt;Integer> gateways = new ArrayList&lt;>();
+                    for (int i = 0; i &lt; E; i++) {
+                        int EI = in.nextInt(); // the index of a gateway node
+                        gateways.add(EI);
+                    }
+                    // Solution idea:
+                    /* The idea is to get the distance of every path from the bobnet agent to the gateway each turn
+                    and sever the first link of the smallest path to the bobnet agent. For that, I will use Djkstra's
+                    shortest path algorithm */
+                    /* Turns out that there are multiple gateways and I have to check every path for every gateway,
+                    and block the shortest between them */
+                    int[] distances = new int[N];
+                    int[] prev = new int[N];
+                    boolean[] visited = new boolean[N];
+
+                    int undefined = N+1;
+
+                    while (true) {
+                        int SI = in.nextInt(); // The index of the node on which the Bobnet agent is positioned this turn
+
+                        for(int i =0;i&lt;N;i++){
+                            distances[i] = Integer.MAX_VALUE;
+                            prev[i] = undefined; // N+1 as undefined
+                            visited[i] = false;
+                        }
+                        distances[SI] = 0;
+
+                        for(int i =0;i&lt;N;i++){
+                            int selected_node_number = get_unvisited_node_with_min_distance(distances, visited);
+                            visited[selected_node_number] = true;
+
+                            Node current_node = nodes[selected_node_number];
+                            for(Integer neighbor : current_node.links){
+                                int alt = distances[current_node.number] + 1;
+                                if(alt &lt; distances[neighbor]){
+                                    distances[neighbor] = alt;
+                                    prev[neighbor] = current_node.number;
+                                }
+                            }
+                        }
+                        // Now distances and prev is all populated
+
+                        // Check the min distance from all the gateways
+                        int min_distance = Integer.MAX_VALUE;
+                        int min_distance_gateway = gateways.get(0);
+                        for(Integer gateway : gateways){
+                            if(distances[gateway] &lt; min_distance){
+                                min_distance = distances[gateway];
+                                min_distance_gateway = gateway;
+                            }
+                        }
+                        // Example: 0 1 are the indices of the nodes you wish to sever the link between
+                        System.out.println(prev[min_distance_gateway] + " " + min_distance_gateway);
+                    }
+                }
+            }
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
