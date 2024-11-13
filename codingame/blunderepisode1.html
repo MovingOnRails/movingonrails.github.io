@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .social-links a {
+          margin-right: 10px;
+          color: #333;
+          text-decoration: none;
+        }
+        .social-links a:hover {
+          color: #007acc;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        a {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <a href="../index.html">HOME</a>
+    <a href="./index.html">BACK</a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">Blunder - episode 1</h1>
+</header>
+
+<section id="easy" class="container">
+    <h2>Problem statement</h2>
+    <p>
+
+
+        Blunder is a depressed robot who heals his depression by partying and drinking alcohol. <br>
+        To save him from a life of debauchery, his creators have reprogrammed the control system with a more rudimentary intelligence. Unfortunately, he has lost his sense of humor and his former friends have now rejected him.
+<br>
+        Blunder is now all alone and is wandering through the streets with the intention of ending it all in a suicide booth.
+<br>
+        To intercept him and save him from almost certain death, the authorities have given you a mission: write a program that will make it possible to foresee the path that Blunder follows. To do so, you are given the logic for the new intelligence with which Blunder has been programmed as well as a map of the city.
+    <br>
+
+        The 9 rules of the new Blunder system:
+<br>
+        Blunder starts from the place indicated by the @ symbol on the map and heads SOUTH.
+        <br>
+        Blunder finishes his journey and dies when he reaches the suicide booth marked $.
+        <br>
+        Obstacles that Blunder may encounter are represented by # or X.
+        <br>
+        When Blunder encounters an obstacle, he changes direction using the following priorities: SOUTH, EAST, NORTH and WEST. So he first tries to go SOUTH, if he cannot, then he will go EAST, if he still cannot, then he will go NORTH, and finally if he still cannot, then he will go WEST.
+        <br>
+        Along the way, Blunder may come across path modifiers that will instantaneously make him change direction. The S modifier will make him turn SOUTH from then on, E, to the EAST, N to the NORTH and W to the WEST.
+        <br>
+        The circuit inverters (I on map) produce a magnetic field which will reverse the direction priorities that Blunder should choose when encountering an obstacle. Priorities will become WEST, NORTH, EAST, SOUTH. If Blunder returns to an inverter I, then priorities are reset to their original state (SOUTH, EAST, NORTH, WEST).
+        <br>
+        Blunder can also find a few beers along his path (B on the map) that will give him strength and put him in “Breaker” mode. Breaker mode allows Blunder to destroy and automatically pass through the obstacles represented by the character X (only the obstacles X). When an obstacle is destroyed, it remains so permanently and Blunder maintains his course of direction. If Blunder is in Breaker mode and passes over a beer again, then he immediately goes out of Breaker mode. The beers remain in place after Blunder has passed.
+        <br>
+        2 teleporters T may be present in the city. If Blunder passes over a teleporter, then he is automatically teleported to the position of the other teleporter and he retains his direction and Breaker mode properties.
+        <br>
+        Finally, the space characters are blank areas on the map (no special behavior other than those specified above).
+        <br>
+
+        Your program must display the sequence of moves taken by Blunder according to the map provided as input.
+        <br>
+        The map is divided into lines (L) and columns (C). The contours of the map are always unbreakable # obstacles. The map always has a starting point @ and a suicide booth $.
+        <br>
+        If Blunder cannot reach the suicide booth because he is indefinitely looping, then your program must only display LOOP.
+z
+    </p>
+    <hr>
+    <pre>
+        <code class="language-java">
+            import java.util.*;
+            import java.io.*;
+            import java.math.*;
+            
+            /**
+             * Auto-generated code below aims at helping you parse
+             * the standard input according to the problem statement.
+             **/
+            class Position {
+                public int y;
+                public int x;
+                Position(int y,int x){
+                    this.x = x;
+                    this.y = y;
+                }
+                Position move(Direction direction, List&lt;Direction> moveList, boolean addDirectionToMoveList){
+                    if(addDirectionToMoveList){
+                        moveList.add(direction);
+                    }
+                    switch(direction){
+                        case Direction.SOUTH:
+                            return this.moveSOUTH();
+                        case Direction.EAST:
+                            return this.moveEAST();
+                        case Direction.NORTH:
+                            return this.moveNORTH();
+                        case Direction.WEST:
+                            return this.moveWEST();
+                    }
+                    return new Position(-1,-1);
+                }
+                Position moveSOUTH(){
+                    return new Position(this.y+1,this.x);
+                }
+                Position moveEAST(){
+                    return new Position(this.y, this.x+1);
+                }
+                Position moveNORTH(){
+                    return new Position(this.y-1, this.x);
+                }
+                Position moveWEST(){
+                    return new Position(this.y,this.x-1);
+                }
+            
+                public String asString(){
+                    return "("+this.y+","+this.x+")";
+                }
+                
+                boolean equals(Position other){
+                    return (this.x == other.x) &amp;&amp; (this.y == other.y);
+                }
+            }
+            
+            enum Direction {
+                SOUTH("SOUTH"), 
+                EAST("EAST"), 
+                NORTH("NORTH"), 
+                WEST("WEST");
+            
+                public String strValue;
+            
+                Direction(String strValue){
+                    this.strValue = strValue;
+                }
+            
+                public Direction nextDirection(){
+                    return this.values()[(this.ordinal()+1) % this.values().length];
+                }
+            }
+            
+            enum Priority {
+                OFF("OFF"),
+                SOUTH("SOUTH"),
+                EAST("EAST"),
+                NORTH("NORTH"),
+                WEST("WEST");
+            
+                public String strValue;
+            
+                Priority(String strValue){
+                    this.strValue = strValue;
+                }
+            
+                public Priority nextPriority(boolean inverterON){
+                    if(inverterON){
+                        if(this.ordinal() == 0){
+                            return this.values()[this.values().length-1];
+                        } else {
+                            return this.values()[this.ordinal()-1];
+                        }
+                    } else {
+                        return this.values()[(this.ordinal()+1) % this.values().length];
+                    }
+                }
+            
+                public Direction asDirection(){
+                    return Direction.values()[this.ordinal()-1];
+                }
+            }
+            
+            class RobotState {
+                Position position = new Position(-1,-1);
+                Direction direction = Direction.SOUTH;
+                boolean beerMode = false;
+                Priority priority = Priority.OFF;
+                List&lt;Direction> moveList = new LinkedList&lt;>();
+                boolean inverterON = false;
+            
+                Position nextTentativePosition(){
+                    Position res = new Position(-1,-1);
+                    if(this.priority == Priority.OFF){
+                        res = this.position.move(this.direction, this.moveList, false);
+                    } else {
+                        Direction dir = this.priority.asDirection();
+                        res = this.position.move(dir, this.moveList, false);
+                    }
+                    return res;
+                }
+            
+                Position move(){
+                    if(this.priority == Priority.OFF){
+                        this.position = this.position.move(this.direction, this.moveList, true);
+                    }else{
+                        Direction dir = this.priority.asDirection();
+                        this.position = this.position.move(dir, this.moveList, true);
+                        this.direction = dir;
+                    }
+                    this.priority = Priority.OFF;
+                    return this.position;
+                }
+            
+                boolean deepEquals(RobotState other){
+                    return this.position.equals(other.position) &amp;&amp;
+                            this.direction == other.direction &amp;&amp;
+                            this.beerMode == other.beerMode &amp;&amp;
+                            this.priority == other.priority &amp;&amp;
+                            this.inverterON == other.inverterON;
+                }
+            }
+            
+            class JourneyState{
+                RobotState robotState = new RobotState();
+                char[][] map;
+                int L;
+                int C;
+                JourneyState(RobotState robotState, char[][] map, int L, int C){
+                    RobotState newRobotState = new RobotState();
+            
+                    newRobotState.position = new Position(robotState.position.y,robotState.position.x);
+                    newRobotState.direction = robotState.direction;
+                    newRobotState.beerMode = robotState.beerMode;
+                    newRobotState.priority = robotState.priority;
+                    newRobotState.inverterON = robotState.inverterON;
+                    
+                    this.robotState = newRobotState;
+                    char[][] newMap = new char[L][C];
+                    for(int i=0;i&lt;L;i++){
+                        for(int j=0;j&lt;C;j++){
+                            newMap[i][j] = map[i][j];
+                        }
+                    }
+                    this.map = newMap;
+                    this.L = L;
+                    this.C = C;
+                }
+                // TODO: change the map variable to be the hashCode from deepHashCode to compare faster
+                // TODO: test locally the LOOP case
+                boolean deepEquals(JourneyState other){
+                    return other.robotState.deepEquals(this.robotState) &amp;&amp; Arrays.deepEquals(this.map,other.map);
+                }
+            }
+            
+            class Solution {
+            
+                public static Position teleport(Position robotPosition, char[][] map, int L, int C){
+                    List&lt;Position> teleports = new ArrayList&lt;>();
+                    for(int i=0;i&lt;L;i++){
+                        for(int j=0;j&lt;C;j++){
+                            if(map[i][j] == 'T'){
+                                teleports.add(new Position(i,j));
+                            }
+                        }
+                    }
+                    Position teleportTO = new Position(-1,-1);
+                    for(Position t : teleports){
+                        if(!t.equals(robotPosition)){
+                            teleportTO = t;
+                        }
+                    }
+                    return teleportTO;
+                }
+            
+                
+                public static RobotState getNextState(char nextCell, RobotState robotState, char[][] map, int L, int C){
+                    System.err.println("nextCell: "+nextCell);
+                    System.err.println("robotState.position: "+robotState.position.asString());
+                    System.err.println("robotState.direction: "+robotState.direction.strValue);
+                    System.err.println("robotState.priority: "+robotState.priority.strValue);
+                    System.err.println("robotState.priority.inverterON: "+robotState.inverterON);
+                    System.err.println("robotState.beerMode"+robotState.beerMode);
+                    switch(nextCell){
+                        case '@':
+                        case ' ':
+                            robotState.move();
+                            return robotState;
+                        case 'X':
+                            if(robotState.beerMode){
+                                robotState.move();
+                                Position robotPosition = robotState.position;
+                                map[robotPosition.y][robotPosition.x] = ' ';
+                            } else {
+                                robotState.priority = robotState.priority.nextPriority(robotState.inverterON);
+                            }
+                            return robotState;
+                        case '#':
+                            robotState.priority = robotState.priority.nextPriority(robotState.inverterON);
+                            return robotState;
+                        case 'S':
+                            robotState.move();
+                            robotState.direction = Direction.SOUTH;
+                            return robotState;
+                        case 'E':
+                            robotState.move();
+                            robotState.direction = Direction.EAST;
+                            return robotState;
+                        case 'N':
+                            robotState.move();
+                            robotState.direction = Direction.NORTH;
+                            return robotState;
+                        case 'W':
+                            robotState.move();
+                            robotState.direction = Direction.WEST;
+                            return robotState;
+                        case 'B':
+                            robotState.move();
+                            robotState.beerMode = !robotState.beerMode;
+                            return robotState;
+                        case 'I':
+                            robotState.move();
+                            robotState.inverterON = !robotState.inverterON;
+                            return robotState;
+                        case 'T':
+                            robotState.move();
+                            robotState.position = teleport(robotState.position, map, L, C);
+                            return robotState;
+                        case '$':
+                            robotState.move();
+                            return robotState;
+                    }
+                    return new RobotState();
+                }
+            
+                public static Position getInitialPosition(char[][] map, int L, int C){
+                    for(int i=0;i&lt;L;i++){
+                        for(int j=0;j&lt;C;j++){
+                            char currentCell = map[i][j];
+                            if(currentCell == '@'){
+                                return new Position(i,j);
+                            }
+                        }
+                    }
+                    return new Position(-1,-1);
+                }
+            
+                public static void printMap(char[][] map, int L, int C){
+                    for(int i=0;i&lt;L;i++){
+                        for(int j=0;j&lt;C;j++){
+                            System.err.print(map[i][j]);
+                        }
+                        System.err.print('\n');
+                    }
+                }
+            
+                public static void printMoveList(List&lt;Direction> moveList){
+                    for(Direction d : moveList){
+                        System.out.println(d.strValue);
+                    }
+                }
+            
+                public static void main(String args[]) {
+                    Scanner in = new Scanner(System.in);
+                    int L = in.nextInt();
+                    int C = in.nextInt();
+                    char[][] map = new char[L][C];
+                    if (in.hasNextLine()) {
+                        in.nextLine();
+                    }
+                    for (int i = 0; i &lt; L; i++) {
+                        String row = in.nextLine();
+                        for(int j = 0; j &lt; C; j++){
+                            char cell = row.charAt(j);
+                            map[i][j] = cell;
+                        }
+                    }
+            
+                    RobotState currentRobotState = new RobotState();
+                    currentRobotState.position = getInitialPosition(map, L, C);
+                    currentRobotState.direction = Direction.SOUTH;
+                    currentRobotState.beerMode = false;
+                    currentRobotState.moveList = new LinkedList&lt;>();
+            
+                    List&lt;JourneyState> journeyStates = new LinkedList&lt;>();
+                    boolean isLooping = false;
+                    printMap(map,L,C);
+                    while(true){
+                        Position nextTentativePosition = currentRobotState.nextTentativePosition();
+                        char nextCell = map[nextTentativePosition.y][nextTentativePosition.x];
+            
+                        JourneyState currentJourneyState = new JourneyState(currentRobotState, map, L, C);
+                        journeyStates.add(currentJourneyState);
+            
+                        RobotState nextRobotState = getNextState(nextCell, currentRobotState, map, L, C);
+                        JourneyState nextJourneyState = new JourneyState(nextRobotState, map, L, C);
+            
+                        for(JourneyState journeyState : journeyStates){
+                            if(journeyState.deepEquals(nextJourneyState)){
+                                isLooping = true;
+                                break;
+                            }
+                        }
+            
+                        if(nextCell == '$' || isLooping){
+                            break;
+                        }
+            
+                        currentRobotState = nextRobotState;
+            
+                        System.err.println("--------");
+                    }
+                    if(!isLooping){
+                        printMoveList(currentRobotState.moveList);
+                    } else {
+                        System.out.println("LOOP");
+                    }
+                    
+                }
+            }
+        </code>
+    </pre>
+</section>
+
+</body>
+</html>
