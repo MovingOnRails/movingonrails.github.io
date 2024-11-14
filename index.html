@@ -81,7 +81,38 @@
           scroll-behavior: smooth;
         }
 
-        nav {
+        .image-boxes {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            display: block;
+            width: 200px;
+            text-align: center;
+            text-decoration: none;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .box p {
+            margin: 10px 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            border-color: #666;
         }
 
     </style>
@@ -145,17 +176,24 @@
         </section>
     </div>
 
-    <div id="projectsImage" style="background-image: url('./static/computer-screen-showing-lines-of-code2.jpg');
-                                   background-repeat: no-repeat;
-                                   background-size: cover;
-                                   background-position: center">
-        <section id="projects" class="container" style="text-align: left; color: #e1e1e1">
+    <div id="projectsImage">
+        <section id="projects" class="container" style="text-align: left;">
             <h2>Projects</h2>
             <hr>
-            <ul>
+            <div class="image-boxes">
+                <a href="https://github.com/MovingOnRails/project-aggregator" class="box" target="_blank">
+                    <img src="./static/computer-screen-showing-lines-of-code2.jpg" alt="Project Aggregator">
+                    <p>Project Aggregator</p>
+                </a>
+                <a href="./codingame/index.html" class="box" target="_blank">
+                    <img src="./static/codingame-1.svg" alt="CodinGame Solutions">
+                    <p>CodinGame Solutions</p>
+                </a>
+            </div>
+            <!--<ul>
                 <li><a href="https://github.com/MovingOnRails/project-aggregator" target="_blank" style="color: white">Project Aggregator</a> A simple blog/commerce webpage. Backend written in Java using Spring Framework</li>
                 <li><a href="./codingame/index.html" target="_blank" style="color: white">Codingame Solutions</a> Solutions I've submitted to <a href="https://codingame.com" style="color: white" target="_blank">codingame.com</a></li>
-            </ul>
+            </ul>-->
         </section>
     </div>
 
