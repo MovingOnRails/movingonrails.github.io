@@ -1,6 +1,35 @@
 TODO:
-- Add a button that changes the language  from english to spanish,
-  saves that to a cookie and displays the page in es/en depending on that cookie
+- Remove css from .html files, add the link rel stylesheet styles.css
+- Add a button that changes the language  from english to spanish. Implement the spanish pages:
+index.html []
+projectaggregator/index.html []
+codingame/index.html []
+codingame/horseracing.html []
+codingame/defibrillators.html []
+codingame/mimetype.html []
+codingame/asciiart.html []
+codingame/marslander.html []
+codingame/temperatures.html []
+codingame/powerofthor.html []
+codingame/thedescent.html []
+codingame/scrabble.html []
+codingame/blunderepisode1.html []
+codingame/dwarfs.html []
+codingame/telephonenumbers.html []
+codingame/conwaysequence.html []
+codingame/networkcabling.html []
+codingame/thefallepisode1.html []
+codingame/stockexchange.html []
+codingame/war.html []
+codingame/dontpanic.html []
+codingame/deathfirstsearch.html []
+codingame/nospoon.html []
+codingame/shadows.html []
+codingame/surface.html []
+codingame/rollercoaster.html []
+codingame/supercomputer.html []
+
+
 - Implement the responsive/mobile version of the site
 - Add linkedin to contact section
 - Add github to contact section

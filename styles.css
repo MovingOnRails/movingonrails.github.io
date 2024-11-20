@@ -1,0 +1,143 @@
+body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          color: #333;
+        }
+
+        section {
+            height: 50vh;
+        }
+
+        section h2 {
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        section hr {
+            width: 50px;
+        }
+
+        header {
+          background-color: #333;
+          color: #fff;
+          padding: 10px;
+          padding-top: 40px;
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          max-width: 800px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          line-height: 1.6;
+        }
+
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #000;
+          color: white;
+          padding: 10px 0;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000; /* Keeps navbar on top of other elements */
+          display: flex;
+          justify-content: center;
+        }
+
+        .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 18px;
+        }
+
+        .navbar a:hover {
+          color: #007acc;
+        }
+
+        nav a {
+          scroll-behavior: smooth;
+        }
+
+        .image-boxes {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            display: block;
+            width: 200px;
+            text-align: center;
+            text-decoration: none;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .box p {
+              margin: 10px 0;
+              color: #333;
+              font-size: 16px;
+        }
+
+        .box:hover{
+              transform: scale(1.05);
+              border-color: #444;
+        }
+
+        .contact a {
+            color: white;
+        }
+
+        .outlined-text {
+          color: white;
+          text-shadow:
+            1px 1px 0 black,
+           -1px 1px 0 black,
+            1px -1px 0 black,
+           -1px -1px 0 black;
+        }
+        .language-switch {
+              background-color: #007acc; /* Button color */
+              color: white;
+              border: none;
+              padding: 8px 16px;
+              font-size: 16px;
+              cursor: pointer;
+              border-radius: 4px;
+              transition: background-color 0.3s;
+              margin-right: 20px;
+              position: absolute;
+              top: 5%;
+              right: 1%;
+        }
+
+        .language-switch:hover {
+          background-color: #005f99; /* Darker shade on hover */
+        }
+
+        .language-switch a {
+            color: white;
+        }
+
+        .language-switch a:hover {
+            text-decoration: none;
+            color:white
+        }

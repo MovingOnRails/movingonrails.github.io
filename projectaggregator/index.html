@@ -4,74 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MovingOnRails</title>
-    <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          background-color: #f4f4f4;
-          color: #333;
-        }
-
-        section {
-            height: 50vh;
-        }
-
-        section h2 {
-            padding-top: 40px;
-            text-align: center;
-        }
-
-        section hr {
-            width: 50px;
-        }
-
-        .container {
-          padding: 20px;
-          max-width: 800px;
-          margin: 0 auto;
-          text-align: center;
-        }
-        h1 {
-          color: #333;
-        }
-        p {
-          line-height: 1.6;
-        }
-
-        .navbar {
-          position: fixed;
-          top: 0;
-          width: 100%;
-          background-color: #000;
-          color: white;
-          padding: 10px 0;
-          text-align: center;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          z-index: 1000; /* Keeps navbar on top of other elements */
-        }
-
-        .navbar a {
-          color: white;
-          text-decoration: none;
-          margin: 0 15px;
-          font-size: 18px;
-        }
-
-        .navbar a:hover {
-          color: #007acc;
-        }
-
-        nav a {
-          scroll-behavior: smooth;
-        }
-
-        .contact a {
-            color: white;
-        }
-}
-
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <script>
@@ -90,15 +23,18 @@
 </script>
 
 <nav class="navbar">
-    <a href="../index.html">Home</a>
-    <a href="#projectaggregator">Project Aggregator</a>
+    <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="#projectaggregator">Project Aggregator</a>
+    </div>
+    <a href="/es/projectaggregator/index.html"><button class="language-switch">ES</button></a>
 </nav>
 
 <div>
 
     <!--- PROJECTS ------------------------------------------------------------------>
     <div id="projectaggregatorimage">
-        <section id="projectaggregator" class="container" style="text-align: left;">
+        <section id="projectaggregator" class="container" style="text-align: left; margin-bottom: 50px">
             <h2>Project Aggregator</h2>
             <hr>
             <p>Project aggregator is a small blog/e-commerce site developed using JAVA and Spring boot.
@@ -108,7 +44,7 @@
             </p>
             <h3>Technologies:</h3>
             <p>JAVA, Spring boot MVC, Spring Security, MySQL, docker, maven , html, css, bootstrap, prism.js, pebble templating engine, Javascript, JPA, Hibernate</p>
-            <div style="display: flex; justify-content: space-between;">
+            <div style="display: flex; justify-content: space-around;">
                 <a href="https://github.com/MovingOnRails/project-aggregator" class="box" target="_blank">
                     <p>Code</p>
                 </a>
