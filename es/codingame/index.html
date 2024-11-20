@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovingOnRails</title>
+    <link href="../prism/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<script src="../prism/prism.js"></script>
+<script>
+    window.addEventListener('load', function(){
+        document.querySelectorAll('a[href^="#"]').forEach(
+        anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        });
+    });
+</script>
+
+<nav class="navbar">
+    <div class="nav-links">
+        <a href="../index.html">INICIO</a>
+        <a href="#easy">FACIL</a>
+        <a href="#medium">MEDIO</a>
+        <a href="#hard">DIFICIL</a>
+    </div>
+    <a href="../../codingame/index.html"><button class="language-switch">EN</button></a>
+</nav>
+
+<header>
+    <h1 style="color: #dae1ee">CodinGame</h1>
+    <p>
+        Codingame es una plataforma online diseñada para entrenar las habilidades de resolución de problemas y el pensamiento algorítmico.
+        He completado una variedad de ejercicios, y esta página exhibe mis soluciones.
+    </p>
+</header>
+
+<section id="easy" class="container" style="text-align: left">
+    <h2>Dificultad fácil</h2>
+    <hr>
+    <ul>
+        <li><a href="./horseracing.html">Horse-Racing Duals</a>: ordenamiento, listas.</li>
+        <li><a href="./defibrillators.html">Defibrillators</a>: Strings, trigonometría, distancias.</li>
+        <li><a href="./mimetype.html">Mime Type</a>: Strings, arrays asociativos, tablas hash.</li>
+        <li><a href="./asciiart.html">ASCII Art</a>: Strings, bucles.</li>
+        <li><a href="./marslander.html">Mars Lander</a>: Condiciones.</li>
+        <li><a href="./temperatures.html">Temperatures</a>: Condiciones, valor absoluto, bucles.</li>
+        <li><a href="./powerofthor.html">Power of Thor</a>: Condiciones.</li>
+        <li><a href="./thedescent.html">The Descent</a>: ordenamiento, bucles, máximo.</li>
+    </ul>
+</section>
+
+<section id="medium" class="container" style="text-align: left">
+    <h2>Dificultad media</h2>
+    <hr>
+    <ul>
+        <li><a href="./scrabble.html">Scrabble</a>: tablas hash, condiciones, bucles.</li>
+        <li><a href="./blunderepisode1.html">Blunder - Episode 1</a>: Simulacion, Máquinas de estados finitos.</li>
+        <li><a href="./dwarfs.html">Dwarfs Standing on the Shoulders of Giants</a>: Grafos direccionados, recursión, Búsqueda en profundidad (en grafos).</li>
+        <li><a href="./telephonenumbers.html">Telephone Numbers</a>: Tries.</li>
+        <li><a href="./conwaysequence.html">Conway Sequence</a>: Sequencias, progresiones.</li>
+        <li><a href="./networkcabling.html">Network Cabling</a>: distancia Manhattan, mediana.</li>
+        <li><a href="./thefallepisode1.html">The Fall - Episode 1</a>: Arrays multidimiensionales, condiciones.</li>
+        <li><a href="./stockexchange.html">Stock Exchange Losses</a>: Condiciones, bucles, arrays.</li>
+        <li><a href="./war.html">War</a>: Simulaciones, filas.</li>
+        <li><a href="./dontpanic.html">Don't Panic</a>: Condiciones.</li>
+        <li><a href="./deathfirstsearch.html">Death First Search</a>: Grafos, Busqueda en anchura (en grafos), algoritmo de Djkstra's</li>
+        <li><a href="./nospoon.html">There is No Spoon</a>: Lists, array multidimensional, bucles.</li>
+        <li><a href="./shadows.html">Shadows of the Knight</a>: Búsqueda binaria en 2D, Intervalos.</li>
+    </ul>
+</section>
+
+<section id="hard" class="container" style="text-align: left">
+    <h2>Dificultad difícil</h2>
+    <hr>
+    <ul>
+        <li><a href="./surface.html">Surface</a>: algoritmo de relleno por inundación, Recursión, Mermorización.</li>
+        <li><a href="./rollercoaster.html">Roller Coaster</a>:Fila FIFO, Memorización, listas circulares.</li>
+        <li><a href="./supercomputer.html">Super Computer</a>:ordenamiento, algoritmo voraz (greedy algorithms), complejidad computacional, scheduling de intervalos, algoritmo Earliest Deadline First (EDF).</li>
+    </ul>
+</section>
+
+</body>
+</html>

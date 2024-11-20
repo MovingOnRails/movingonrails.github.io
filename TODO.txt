@@ -1,8 +1,8 @@
 TODO:
 - Implement the spanish pages:
-index.html []
-projectaggregator/index.html []
-codingame/index.html []
+index.html [x]
+projectaggregator/index.html [x]
+codingame/index.html [x]
 codingame/horseracing.html []
 codingame/defibrillators.html []
 codingame/mimetype.html []
