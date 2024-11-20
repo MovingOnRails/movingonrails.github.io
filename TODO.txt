@@ -1,7 +1,4 @@
 TODO:
-- Make a particular page for the project aggregator portfolio project
-- List technologies used on the portfolio project project-aggregator
-- Put two buttons on each project: one for the code, with a github icon. One for the preview, with "preview" text.
 - Add a button that changes the language  from english to spanish,
   saves that to a cookie and displays the page in es/en depending on that cookie
 - Implement the responsive/mobile version of the site
@@ -10,6 +7,9 @@ TODO:
 - Beautify contact section
 - Add a technology section 
 DONE:
+- Make a particular page for the project aggregator portfolio project
+- List technologies used on the portfolio project project-aggregator
+- Put two buttons on each project: one for the code, with a github icon. One for the preview, with "preview" text.
 - Check if there are other fonts for the text on the page. "Manrope" font seems nice [DEFERRED]
 - Make the text more readable in the about me section. Maybe add a text outline/shadow
 - Move About me section to the bottom, put projects first
