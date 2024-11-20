@@ -1,9 +1,10 @@
 TODO:
-- Add a button that changes the language  from english to spanish
-- Implement the responsive version of the site
-- Make boxes for the portfolio projects, that highlight themselves and then a text appears when hovering over them.
-- List technologies used on the portfolio project boxes, adding technology icons. 
+- Make a particular page for the project aggregator portfolio project
+- List technologies used on the portfolio project project-aggregator
 - Put two buttons on each project: one for the code, with a github icon. One for the preview, with "preview" text.
+- Add a button that changes the language  from english to spanish,
+  saves that to a cookie and displays the page in es/en depending on that cookie
+- Implement the responsive/mobile version of the site
 - Add linkedin to contact section
 - Add github to contact section
 - Beautify contact section
