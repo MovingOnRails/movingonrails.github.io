@@ -1,5 +1,4 @@
 TODO:
-- Remove css from .html files, add the link rel stylesheet styles.css
 - Add a button that changes the language  from english to spanish. Implement the spanish pages:
 index.html []
 projectaggregator/index.html []
@@ -36,6 +35,7 @@ codingame/supercomputer.html []
 - Beautify contact section
 - Add a technology section 
 DONE:
+- Remove css from .html files, add the link rel stylesheet styles.css
 - Make a particular page for the project aggregator portfolio project
 - List technologies used on the portfolio project project-aggregator
 - Put two buttons on each project: one for the code, with a github icon. One for the preview, with "preview" text.
