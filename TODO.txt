@@ -1,6 +1,4 @@
 TODO:
-- Move About me section to the bottom, put projects first
-- Make the text more readable in the about me section. Maybe add a text outline/shadow
 - Check if there are other fonts for the text on the page. "Manrope" font seems nice
 - Add a button that changes the language  from english to spanish
 - Implement the responsive version of the site
@@ -12,6 +10,8 @@ TODO:
 - Beautify contact section
 - Add a technology section 
 DONE:
+- Make the text more readable in the about me section. Maybe add a text outline/shadow
+- Move About me section to the bottom, put projects first
 - Check if the www. website redirects to my portfolio page
 - Put job title on the about me description. Back-end developer
 - Change MovingOnRails to Jonatan Castro
