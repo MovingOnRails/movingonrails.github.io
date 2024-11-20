@@ -1,5 +1,5 @@
 TODO:
-- Add a button that changes the language  from english to spanish. Implement the spanish pages:
+- Implement the spanish pages:
 index.html []
 projectaggregator/index.html []
 codingame/index.html []
@@ -28,13 +28,13 @@ codingame/surface.html []
 codingame/rollercoaster.html []
 codingame/supercomputer.html []
 
-
 - Implement the responsive/mobile version of the site
 - Add linkedin to contact section
 - Add github to contact section
 - Beautify contact section
 - Add a technology section 
 DONE:
+- Add a button that changes the language  from english to spanish.
 - Remove css from .html files, add the link rel stylesheet styles.css
 - Make a particular page for the project aggregator portfolio project
 - List technologies used on the portfolio project project-aggregator
