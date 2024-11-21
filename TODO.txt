@@ -1,5 +1,6 @@
 TODO:
 - Implement the spanish pages
+last implemented: blunderepisode1
 - Implement the responsive/mobile version of the site
 - Add linkedin to contact section
 - Add github to contact section
