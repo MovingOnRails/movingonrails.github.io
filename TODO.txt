@@ -1,11 +1,8 @@
 TODO:
-- Make the projects section appear more beautified --> set them in boxes like in https://www.diegoinost.dev/#experience
 - Implement the responsive/mobile version of the site
 - Add linkedin to contact section
-- Add github to contact section
-- Beautify contact section
-- Add a technology section 
 DONE:
+- Make the projects section appear more beautified --> set them in boxes like in https://www.diegoinost.dev/#experience
 - Limit the length of the text on the page
 - Put a skills section with the skills itemified
 - Make the name and job title more beatuyfied
