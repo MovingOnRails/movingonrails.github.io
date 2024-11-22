@@ -20,7 +20,7 @@ body {
         }
 
         header {
-          background-color: #333;
+          background-color: #1C1D1E;
           color: #fff;
           padding: 10px;
           padding-top: 40px;
@@ -115,7 +115,7 @@ body {
            -1px -1px 0 black;
         }
         .language-switch {
-              background-color: #007acc; /* Button color */
+              background-color: #353535; /* Button color */
               color: white;
               border: none;
               padding: 8px 16px;
@@ -143,4 +143,22 @@ body {
             position: absolute;
             top: 5%;
             right: 1%
+        }
+
+        .skills-container {
+            display: flex;
+            justify-content: space around;
+            flex-wrap: wrap;
+        }
+
+        .skill {
+            font-family: sans-serif;
+            color: black;
+            background-color: white;
+            border-radius: 4px;
+            padding: 5px 10px 5px 10px;
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }

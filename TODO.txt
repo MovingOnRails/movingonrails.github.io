@@ -1,10 +1,14 @@
 TODO:
+- Make the projects appear more beautified --> set them in boxes like in
 - Implement the responsive/mobile version of the site
 - Add linkedin to contact section
 - Add github to contact section
 - Beautify contact section
 - Add a technology section 
 DONE:
+- Limit the length of the text on the page
+- Put a skills section with the skills itemified
+- Make the name and job title more beatuyfied
 - Implement the spanish pages
 - Add a button that changes the language  from english to spanish.
 - Remove css from .html files, add the link rel stylesheet styles.css
