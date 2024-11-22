@@ -42,21 +42,43 @@
 
     <!--- PROJECTS ------------------------------------------------------------------>
     <div id="projectsImage">
-        <section id="projects" class="container" style="text-align: left;">
+        <section id="projects" class="container" style="text-align: left; height: 800px">
             <h2>Proyectos</h2>
             <hr>
-            <div class="image-boxes" style="display: flex; justify-content: space-around;">
-                <!-- https://github.com/MovingOnRails/project-aggregator -->
-                <a href="./projectaggregator/index.html" class="box" >
-                    <img src="../static/computer-screen-showing-lines-of-code2.jpg" alt="Project Aggregator">
-                    <p>Project Aggregator</p>
-                </a>
-
-                <a href="./codingame/index.html" class="box" >
-                    <img src="../static/codingame-1.svg" alt="CodinGame">
-                    <p>CodinGame</p>
-                </a>
-
+            <div class="project-boxes">
+                <div class="project-box row">
+                    <div class="project-box-description" style="display flex;flex-direction: column;">
+                        <h3>Project Aggregator</h3>
+                        <p>
+                            Project aggregator es una pequeña aplicación crud de blog/e-commerce desarrollada usando JAVA y Spring Boot.
+                            Tiene una manera de loggearse como admin para publicar o editar blogs/items de productos, los cuales aparecen
+                            en la pagina de productos de la aplicaciṕn. Llamamos a la plataforma Marinabi como una combinacion entre "Mariposa"
+                            y "Nabi" (mariposa en koreano).
+                        </p>
+                        <div style="display: flex;justify-content: space-between">
+                            <a href="https://github.com/MovingOnRails/project-aggregator" class="box" target="_blank">
+                                <p>Code</p>
+                            </a>
+                            <a href="http://18.230.130.136 :8080/" class="box" target="_blank">
+                                <p>Preview</p>
+                            </a>
+                        </div>
+                    </div>
+                    <img src="../static/computer-screen-showing-lines-of-code2.jpg" class="project-box-image" alt="Project Aggregator">
+                </div>
+                <div class="project-box row">
+                    <div class="project-box-description" style="display flex;flex-direction: column;">
+                        <h3>Project Aggregator</h3>
+                        <p>Codingame es una plataforma online de programación diseñada para entrenar las habilidades de resolución de problemas y
+                        pensamiento algorítmico. Completé una variedad de problemas, y la sigiuente página exhibe mis soluciones.</p>
+                        <div style="display: flex;justify-content: center">
+                            <a href="../codingame/index.html" class="box">
+                                <p>Code</p>
+                            </a>
+                        </div>
+                    </div>
+                    <img src="../static/codingame-1.svg" class="project-box-image" alt="codingame">
+                </div>
             </div>
         </section>
     </div>
