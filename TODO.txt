@@ -1,5 +1,5 @@
 TODO:
-- Make the projects appear more beautified --> set them in boxes like in
+- Make the projects section appear more beautified --> set them in boxes like in https://www.diegoinost.dev/#experience
 - Implement the responsive/mobile version of the site
 - Add linkedin to contact section
 - Add github to contact section
