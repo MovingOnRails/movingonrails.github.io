@@ -42,26 +42,42 @@
 
     <!--- PROJECTS ------------------------------------------------------------------>
     <div id="projectsImage">
-        <section id="projects" class="container" style="text-align: left;">
-            <h2>Projects</h2>
+        <section id="projects" class="container" style="text-align: left; height: 800px">
+            <h2>Proyects</h2>
             <hr>
-            <div class="image-boxes" style="display: flex; justify-content: space-around;">
-                <!-- https://github.com/MovingOnRails/project-aggregator -->
-                <a href="./projectaggregator/index.html" class="box"">
-                    <img src="./static/computer-screen-showing-lines-of-code2.jpg" alt="Project Aggregator">
-                    <p>Project Aggregator</p>
-                </a>
-
-                <a href="./codingame/index.html" class="box">
-                    <img src="./static/codingame-1.svg" alt="CodinGame">
-                    <p>CodinGame</p>
-                </a>
-
+            <div class="project-boxes">
+                <div class="project-box row">
+                    <div class="project-box-description" style="display flex;flex-direction: column;">
+                        <h3>Project Aggregator</h3>
+                        <p>Project aggregator is a small blog/e-commerce site developed using JAVA and Spring boot.
+                            It features a way to log in as an admin user that can publish and edit blog/product items,
+                            which appear on the products page of the application. We named the platform Marinabi as a combination
+                            of "Mariposa" (butterfly in spanish) and "Nabi" (butterfly in korean)</p>
+                        <div style="display: flex;justify-content: space-between">
+                            <a href="https://github.com/MovingOnRails/project-aggregator" class="box" target="_blank">
+                                <p>Code</p>
+                            </a>
+                            <a href="http://18.230.130.136 :8080/" class="box" target="_blank">
+                                <p>Preview</p>
+                            </a>
+                        </div>
+                    </div>
+                        <img src="./static/computer-screen-showing-lines-of-code2.jpg" class="project-box-image" alt="Project Aggregator">
+                </div>
+                <div class="project-box row">
+                    <div class="project-box-description" style="display flex;flex-direction: column;">
+                        <h3>Project Aggregator</h3>
+                        <p>Codingame is an online coding platform designed to train your skills in problem solving and algorithmic thinking.
+                            I’ve completed a variety of solo puzzles, and this page showcases my solutions.</p>
+                        <div style="display: flex;justify-content: center">
+                            <a href="./codingame/index.html" class="box">
+                                <p>Code</p>
+                            </a>
+                        </div>
+                    </div>
+                    <img src="./static/codingame-1.svg" class="project-box-image" alt="codingame">
+                </div>
             </div>
-            <!--<ul>
-                <li><a href="https://github.com/MovingOnRails/project-aggregator" target="_blank" style="color: white">Project Aggregator</a> A simple blog/commerce webpage. Backend written in Java using Spring Framework</li>
-                <li><a href="./codingame/index.html" target="_blank" style="color: white">Codingame Solutions</a> Solutions I've submitted to <a href="https://codingame.com" style="color: white" target="_blank">codingame.com</a></li>
-            </ul>-->
         </section>
     </div>
 
