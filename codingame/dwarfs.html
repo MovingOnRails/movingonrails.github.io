@@ -57,123 +57,114 @@
 
     </p>
     <hr>
-    <pre>
-        <code class="language-java">
-            import java.util.*;
-            import java.io.*;
-            import java.math.*;
-
-            /**
-             * Auto-generated code below aims at helping you parse
-             * the standard input according to the problem statement.
-             **/
-            class DirectedNode {
-                int number;
-                List&lt;Integer> directedEdges = new LinkedList&lt;>();
-                DirectedNode(int number){
-                    this.number = number;
-                }
-            }
-
-            class Solution {
-
-                public static List&lt;DirectedNode> findTreeRoots(List&lt;DirectedNode> nodes){
-                    List&lt;Integer> rightSideOfEdges = new LinkedList&lt;>();
-
-                    for(DirectedNode currentNode : nodes){
-                        for(Integer rightSide : currentNode.directedEdges){
-                            rightSideOfEdges.add(rightSide);
-                        }
-                    }
-                    List&lt;DirectedNode> roots = new LinkedList&lt;>();
-                    for(DirectedNode currNode : nodes){
-                        boolean found = false;
-                        for(Integer rightSide : rightSideOfEdges ){
-                            if(currNode.number == rightSide){
-                                found = true;
-                            }
-                        }
-                        if(!found){
-                            roots.add(currNode);
-                        }
-                    }
-                    return roots;
-                }
-
-                public static int DFS(DirectedNode currNode, List&lt;DirectedNode> nodes){
-                    System.err.println("currNode: "+currNode.number);
-                    if(currNode.directedEdges.isEmpty()){
-                        return 0;
-                    }
-                    int maxPathLength = 0;
-                    for(Integer recursiveNodeNumber : currNode.directedEdges){
-                        Optional&lt;DirectedNode> recursiveNode = findDirectedNodeWithNumber(nodes, recursiveNodeNumber);
-                        int recursivePathLength = 0;
-                        if(recursiveNode.isPresent()){
-                            recursivePathLength = DFS(recursiveNode.get(), nodes);
-                        }
-
-                        if(recursivePathLength > maxPathLength){
-                            maxPathLength = recursivePathLength;
-                        }
-                    }
-                    return maxPathLength+1;
-                }
-
-                public static Optional&lt;DirectedNode> findDirectedNodeWithNumber(List&lt;DirectedNode> nodes, int number){
-                    Optional&lt;DirectedNode> found = Optional.empty();
-                    for(DirectedNode node : nodes){
-                        if(node.number == number){
-                            found = Optional.of(node);
-                            break;
-                        }
-                    }
-                    return found;
-                }
-
-                public static void main(String args[]) {
-                    Scanner in = new Scanner(System.in);
-                    int n = in.nextInt(); // the number of relationships of influence
-                    List&lt;DirectedNode> influences = new LinkedList&lt;>();
-                    System.err.println("--N--: "+n);
-                    for (int i = 0; i &lt; n; i++) {
-                        int x = in.nextInt(); // a relationship of influence between two people (x influences y)
-                        int y = in.nextInt();
-                        System.err.println("x: "+x);
-                        System.err.println("y: "+y);
-                        System.err.println("-----");
-                        Optional&lt;DirectedNode> foundNode = findDirectedNodeWithNumber(influences, x);
-                        if(foundNode.isEmpty()){
-                            DirectedNode currNode = new DirectedNode(x);
-                            currNode.directedEdges.add(y);
-                            influences.add(currNode);
-                        } else {
-                            DirectedNode currNode = foundNode.get();
-                            currNode.directedEdges.add(y);
-                        }
-                    }
-                    for(DirectedNode node : influences){
-                        System.err.println("node: "+node.number);
-                    }
-                    // TODO use different roots and get the maximum from the paths of different roots
-                    List&lt;DirectedNode> roots = findTreeRoots(influences);
-                    int maximumPathLength = 0;
-                    for(DirectedNode root : roots){
-                        System.err.println("root: "+root.number);
-                        int currPathLength = DFS(root, influences);
-                        System.err.println("currPathLength: "+currPathLength);
-                        if(currPathLength > maximumPathLength){
-                            maximumPathLength = currPathLength;
-                        }
-                    }
-
-                    // The number of people involved in the longest succession of influences
-                    System.out.println(maximumPathLength+1);
-                }
-            }
-        </code>
-    </pre>
 </section>
+<pre style="margin: auto; width: 80%">
+    <code class="language-java">
+        import java.util.*;
+        import java.io.*;
+        import java.math.*;
+        /**
+         * Auto-generated code below aims at helping you parse
+         * the standard input according to the problem statement.
+         **/
+        class DirectedNode {
+            int number;
+            List&lt;Integer> directedEdges = new LinkedList&lt;>();
+            DirectedNode(int number){
+                this.number = number;
+            }
+        }
+        class Solution {
+            public static List&lt;DirectedNode> findTreeRoots(List&lt;DirectedNode> nodes){
+                List&lt;Integer> rightSideOfEdges = new LinkedList&lt;>();
+                for(DirectedNode currentNode : nodes){
+                    for(Integer rightSide : currentNode.directedEdges){
+                        rightSideOfEdges.add(rightSide);
+                    }
+                }
+                List&lt;DirectedNode> roots = new LinkedList&lt;>();
+                for(DirectedNode currNode : nodes){
+                    boolean found = false;
+                    for(Integer rightSide : rightSideOfEdges ){
+                        if(currNode.number == rightSide){
+                            found = true;
+                        }
+                    }
+                    if(!found){
+                        roots.add(currNode);
+                    }
+                }
+                return roots;
+            }
+            public static int DFS(DirectedNode currNode, List&lt;DirectedNode> nodes){
+                System.err.println("currNode: "+currNode.number);
+                if(currNode.directedEdges.isEmpty()){
+                    return 0;
+                }
+                int maxPathLength = 0;
+                for(Integer recursiveNodeNumber : currNode.directedEdges){
+                    Optional&lt;DirectedNode> recursiveNode = findDirectedNodeWithNumber(nodes, recursiveNodeNumber);
+                    int recursivePathLength = 0;
+                    if(recursiveNode.isPresent()){
+                        recursivePathLength = DFS(recursiveNode.get(), nodes);
+                    }
+                    if(recursivePathLength > maxPathLength){
+                        maxPathLength = recursivePathLength;
+                    }
+                }
+                return maxPathLength+1;
+            }
+            public static Optional&lt;DirectedNode> findDirectedNodeWithNumber(List&lt;DirectedNode> nodes, int number){
+                Optional&lt;DirectedNode> found = Optional.empty();
+                for(DirectedNode node : nodes){
+                    if(node.number == number){
+                        found = Optional.of(node);
+                        break;
+                    }
+                }
+                return found;
+            }
+            public static void main(String args[]) {
+                Scanner in = new Scanner(System.in);
+                int n = in.nextInt(); // the number of relationships of influence
+                List&lt;DirectedNode> influences = new LinkedList&lt;>();
+                System.err.println("--N--: "+n);
+                for (int i = 0; i &lt; n; i++) {
+                    int x = in.nextInt(); // a relationship of influence between two people (x influences y)
+                    int y = in.nextInt();
+                    System.err.println("x: "+x);
+                    System.err.println("y: "+y);
+                    System.err.println("-----");
+                    Optional&lt;DirectedNode> foundNode = findDirectedNodeWithNumber(influences, x);
+                    if(foundNode.isEmpty()){
+                        DirectedNode currNode = new DirectedNode(x);
+                        currNode.directedEdges.add(y);
+                        influences.add(currNode);
+                    } else {
+                        DirectedNode currNode = foundNode.get();
+                        currNode.directedEdges.add(y);
+                    }
+                }
+                for(DirectedNode node : influences){
+                    System.err.println("node: "+node.number);
+                }
+                // TODO use different roots and get the maximum from the paths of different roots
+                List&lt;DirectedNode> roots = findTreeRoots(influences);
+                int maximumPathLength = 0;
+                for(DirectedNode root : roots){
+                    System.err.println("root: "+root.number);
+                    int currPathLength = DFS(root, influences);
+                    System.err.println("currPathLength: "+currPathLength);
+                    if(currPathLength > maximumPathLength){
+                        maximumPathLength = currPathLength;
+                    }
+                }
+                // The number of people involved in the longest succession of influences
+                System.out.println(maximumPathLength+1);
+            }
+        }
+    </code>
+</pre>
 
 </body>
 </html>
