@@ -172,3 +172,8 @@ body {
            width: 100px;
            text-align: center;
        }
+
+       .centered-code {
+          margin: auto;
+          width: 80%;
+       }
