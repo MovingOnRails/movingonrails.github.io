@@ -68,128 +68,116 @@
         Note: For this puzzle there is at most one elevator per floor.
     </p>
     <hr>
-    <pre>
-        <code class="language-java">
-            import java.util.*;
-            import java.io.*;
-            import java.math.*;
-
-            /**
-             * Auto-generated code below aims at helping you parse
-             * the standard input according to the problem statement.
-             **/
-
-            class Access {
-                int floor;
-                int pos;
-                boolean taken = false;
-                public Access(int f, int p){
-                    this.floor = f;
-                    this.pos = p;
-                }
-            }
-            class Player {
-
-                public static void passOneTurn(Scanner in){
-                        //System.err.println("PASS START");
-                        System.out.println("WAIT");
-                        int currentFloor = in.nextInt();
-                        int currentPos = in.nextInt();
-                        String direction = in.next();
-                        //System.err.println("PASS END");
-                }
-
-                public static String accessRelativePositionFromLeadingClone(int currentPos, int currentAccessPos){
-                    if(currentPos &lt; currentAccessPos){
-                        return "RIGHT";
-                    } else {
-                        return "LEFT";
-                    }
-                }
-
-                public static void main(String args[]) {
-                    Scanner in = new Scanner(System.in);
-                    int nbFloors = in.nextInt(); // number of floors
-                    int width = in.nextInt(); // width of the area
-                    int nbRounds = in.nextInt(); // maximum number of rounds
-                    int exitFloor = in.nextInt(); // floor on which the exit is found
-                    int exitPos = in.nextInt(); // position of the exit on its floor
-                    int nbTotalClones = in.nextInt(); // number of generated clones
-                    int nbAdditionalElevators = in.nextInt(); // ignore (always zero)
-                    int nbElevators = in.nextInt(); // number of elevators
-
-                    Access[] accesses = new Access[nbElevators+1];
-                    for (int i = 0; i &lt; nbElevators; i++) {
-                        int elevatorFloor = in.nextInt(); // floor on which this elevator is found
-                        int elevatorPos = in.nextInt(); // position of the elevator on its floor
-                        Access elevator = new Access(elevatorFloor, elevatorPos);
-                        accesses[elevatorFloor] = elevator;
-                    }
-                    Access exit = new Access(exitFloor, exitPos);
-                    accesses[exitFloor] = exit;
-
-                    // game loop
-                    int currentFloor = 0;
-                    int previousFloor = 0;
-                    boolean[] floorMarks = new boolean[nbFloors];
-                    for(int i=0;i&lt;floorMarks.length;i++){
-                        floorMarks[i] = false;
-                    }
-                    int currentPos = 0;
-                    String direction = "LEFT";
-                    Access currentAccess = accesses[0];
-                    String action = "WAIT";
-                    while (true) {
-                        previousFloor = currentFloor;
-                        currentFloor = in.nextInt(); // floor of the leading clone
-                        currentPos = in.nextInt(); // position of the leading clone on its floor
-                        direction = in.next(); // direction of the leading clone: LEFT or RIGHT
-
-                        if(previousFloor != currentFloor){
-                            if(previousFloor != -1){
-                                floorMarks[previousFloor] = true;
-                            }
-                        }
-
-                        if(currentFloor != -1){
-                            currentAccess = accesses[currentFloor];
-                            System.err.println("----------");
-                            System.err.println("currentFloor: "+currentFloor);
-                            System.err.println("floorMarks[currentFloor]: "+floorMarks[currentFloor]);
-                            System.err.println("currentAccess.floor: "+currentAccess.floor);
-                            System.err.println("direction: "+direction);
-                            System.err.println("access relative position: "+accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos));
-                        }
-
-                        if(currentFloor != -1){ // if the clone is already in game, not spawning
-
-                            if(!floorMarks[currentFloor]){
-                                if( direction.equals(accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos))
-                                || currentPos == currentAccess.pos){ /*  clone is facing towards currentAccess or is taking an access*/
-                                    //Do nothing
-                                    action = "WAIT";
-                                    System.err.println("WAIT");
-                                } else {
-                                    floorMarks[currentFloor] = true;
-                                    passOneTurn(in);
-                                    action = "BLOCK";
-                                    System.err.println("BLOCK");
-                                    // Change direction
-                                }
-                            } else {
-                                action = "WAIT";
-                            }
-
-                            System.out.println(action); // action: WAIT or BLOCK
-                        } else { // If the clone is spawning
-                            System.out.println("WAIT");
-                        }
-                    }
-                }
-            }
-        </code>
-    </pre>
+    
 </section>
-
+<pre style="margin: auto; width: 80%">
+    <code class="language-java">
+        import java.util.*;
+        import java.io.*;
+        import java.math.*;
+        /**
+         * Auto-generated code below aims at helping you parse
+         * the standard input according to the problem statement.
+         **/
+        class Access {
+            int floor;
+            int pos;
+            boolean taken = false;
+            public Access(int f, int p){
+                this.floor = f;
+                this.pos = p;
+            }
+        }
+        class Player {
+            public static void passOneTurn(Scanner in){
+                    //System.err.println("PASS START");
+                    System.out.println("WAIT");
+                    int currentFloor = in.nextInt();
+                    int currentPos = in.nextInt();
+                    String direction = in.next();
+                    //System.err.println("PASS END");
+            }
+            public static String accessRelativePositionFromLeadingClone(int currentPos, int currentAccessPos){
+                if(currentPos &lt; currentAccessPos){
+                    return "RIGHT";
+                } else {
+                    return "LEFT";
+                }
+            }
+            public static void main(String args[]) {
+                Scanner in = new Scanner(System.in);
+                int nbFloors = in.nextInt(); // number of floors
+                int width = in.nextInt(); // width of the area
+                int nbRounds = in.nextInt(); // maximum number of rounds
+                int exitFloor = in.nextInt(); // floor on which the exit is found
+                int exitPos = in.nextInt(); // position of the exit on its floor
+                int nbTotalClones = in.nextInt(); // number of generated clones
+                int nbAdditionalElevators = in.nextInt(); // ignore (always zero)
+                int nbElevators = in.nextInt(); // number of elevators
+                Access[] accesses = new Access[nbElevators+1];
+                for (int i = 0; i &lt; nbElevators; i++) {
+                    int elevatorFloor = in.nextInt(); // floor on which this elevator is found
+                    int elevatorPos = in.nextInt(); // position of the elevator on its floor
+                    Access elevator = new Access(elevatorFloor, elevatorPos);
+                    accesses[elevatorFloor] = elevator;
+                }
+                Access exit = new Access(exitFloor, exitPos);
+                accesses[exitFloor] = exit;
+                // game loop
+                int currentFloor = 0;
+                int previousFloor = 0;
+                boolean[] floorMarks = new boolean[nbFloors];
+                for(int i=0;i&lt;floorMarks.length;i++){
+                    floorMarks[i] = false;
+                }
+                int currentPos = 0;
+                String direction = "LEFT";
+                Access currentAccess = accesses[0];
+                String action = "WAIT";
+                while (true) {
+                    previousFloor = currentFloor;
+                    currentFloor = in.nextInt(); // floor of the leading clone
+                    currentPos = in.nextInt(); // position of the leading clone on its floor
+                    direction = in.next(); // direction of the leading clone: LEFT or RIGHT
+                    if(previousFloor != currentFloor){
+                        if(previousFloor != -1){
+                            floorMarks[previousFloor] = true;
+                        }
+                    }
+                    if(currentFloor != -1){
+                        currentAccess = accesses[currentFloor];
+                        System.err.println("----------");
+                        System.err.println("currentFloor: "+currentFloor);
+                        System.err.println("floorMarks[currentFloor]: "+floorMarks[currentFloor]);
+                        System.err.println("currentAccess.floor: "+currentAccess.floor);
+                        System.err.println("direction: "+direction);
+                        System.err.println("access relative position: "+accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos));
+                    }
+                    if(currentFloor != -1){ // if the clone is already in game, not spawning
+                        if(!floorMarks[currentFloor]){
+                            if( direction.equals(accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos))
+                            || currentPos == currentAccess.pos){ /*  clone is facing towards currentAccess or is taking an access*/
+                                //Do nothing
+                                action = "WAIT";
+                                System.err.println("WAIT");
+                            } else {
+                                floorMarks[currentFloor] = true;
+                                passOneTurn(in);
+                                action = "BLOCK";
+                                System.err.println("BLOCK");
+                                // Change direction
+                            }
+                        } else {
+                            action = "WAIT";
+                        }
+                        System.out.println(action); // action: WAIT or BLOCK
+                    } else { // If the clone is spawning
+                        System.out.println("WAIT");
+                    }
+                }
+            }
+        }
+    </code>
+</pre>
 </body>
 </html>
